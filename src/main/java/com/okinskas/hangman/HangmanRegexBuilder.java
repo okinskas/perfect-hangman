@@ -1,3 +1,5 @@
+package com.okinskas.hangman;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,19 +51,19 @@ public class HangmanRegexBuilder {
     private void generateInitialRegex() {
         regex = new ArrayList<>();
         for (int i = 0; i < wordLen; i++) {
-            regex.add(getUnkownCharacterSpace());
+            regex.add(getUnknownCharacterSpace());
         }
     }
 
     private void updateRegexAsList() {
         for (int i = 0; i < regex.size(); i++) {
             if (regex.get(i).contains("[a-z")) {
-                regex.set(i, getUnkownCharacterSpace());
+                regex.set(i, getUnknownCharacterSpace());
             }
         }
     }
 
-    private String getUnkownCharacterSpace() {
+    private String getUnknownCharacterSpace() {
         StringBuilder builder = new StringBuilder();
         builder.append("[a-z");
         if (!excluded.isEmpty()) {
