@@ -19,7 +19,11 @@ public class Application implements Runnable {
         Properties properties = ApplicationProperties.getProperties();
 
         // Compose
-        DictionaryReader reader = new DictionaryFileReader(properties.getProperty("dictionaryPath"));
+        DictionaryReader reader = new DictionaryFileReader(
+                properties.getProperty(
+                        PropertyKeys.DICTIONARY_FILE_PATH.toString()
+                )
+        );
 
         HangmanService hangman = new Hangman(
                 new DictionaryAnalyser(reader),
