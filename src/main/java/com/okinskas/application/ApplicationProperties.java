@@ -1,8 +1,7 @@
 package com.okinskas.application;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class ApplicationProperties {
@@ -14,16 +13,13 @@ public class ApplicationProperties {
             return properties;
         }
 
-        URL resource = Thread.currentThread().getContextClassLoader().getResource("");
-        if (resource == null) {
-            System.exit(1);
-        }
-
-        String propertiesPath = resource.getPath() + "app.properties";
+        InputStream resource = Thread.currentThread()
+                .getContextClassLoader()
+                .getResourceAsStream("app.properties");
         properties = new Properties();
 
         try {
-            properties.load(new FileInputStream(propertiesPath));
+            properties.load(resource);
         } catch (IOException e) {
             e.printStackTrace();
         }
