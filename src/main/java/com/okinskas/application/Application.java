@@ -11,14 +11,14 @@ import com.okinskas.views.UI;
 
 import java.util.Properties;
 
-public class Application {
+public class Application implements Runnable {
 
-    private Application() {
+    public void run() {
 
         // Load properties
         Properties properties = ApplicationProperties.getProperties();
 
-        // Compose com.okinskas.application
+        // Compose
         DictionaryReader reader = new DictionaryFileReader(properties.getProperty("dictionaryPath"));
 
         HangmanService hangman = new Hangman(
@@ -26,12 +26,15 @@ public class Application {
                 new HangmanRegexBuilderFactory()
         );
 
-        // Run com.okinskas.application
+        // Run
         UI app = new TerminalUI(hangman);
-        app.run();
+        app.launch();
+
     }
 
     public static void main(String[] args) {
-        new Application();
+
+        Thread gameThread = new Thread(new Application());
+        gameThread.start();
     }
 }

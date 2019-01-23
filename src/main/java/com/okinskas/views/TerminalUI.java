@@ -12,11 +12,15 @@ public class TerminalUI implements UI {
         this.hangman = hangman;
     }
 
-    public void run() {
+    public void launch() {
         Scanner scanner = new Scanner(System.in);
+        printIntro();
 
         while (scanner.hasNext()) {
             String word = scanner.nextLine();
+            if (word.equals("\\exit")) {
+                System.exit(0);
+            }
             hangman.startNewGame(word);
             outputGameState();
             while (!hangman.isWordSolved()) {
@@ -26,26 +30,29 @@ public class TerminalUI implements UI {
         }
     }
 
+    private void printIntro() {
+        System.out.println("Welcome to perfect-hangman. Type any word to begin or \\exit to end the game.");
+    }
+
     private String getFormattedWord() {
         StringBuilder builder = new StringBuilder();
         char[] wordSequence = hangman.getHangmanSequence();
         for (char c : wordSequence) {
             builder.append(String.format("%s ", c));
         }
+        builder.append("\n");
         return builder.toString();
     }
 
     private void outputGameState() {
         StringBuilder builder = new StringBuilder();
+        builder.append(String.format("Correct guesses: %s\n", hangman.getCorrectGuesses()));
+        builder.append(String.format("Inorrect guesses: %s\n", hangman.getIncorrectGuesses()));
+        builder.append(String.format("%s\n", getFormattedWord()));
+
         if (hangman.isWordSolved()) {
             builder.append(getSuccessText());
-        } else {
-            builder.append(String.format(": %s\n", hangman.getCorrectGuesses()));
-            builder.append(String.format("Correct guesses: %s\n", hangman.getCorrectGuesses()));
-            builder.append(String.format("Inorrect guesses: %s\n", hangman.getIncorrectGuesses()));
         }
-
-        builder.append(String.format("%s\n", getFormattedWord()));
         System.out.println(builder.toString());
     }
 
