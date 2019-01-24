@@ -1,0 +1,3 @@
+services:
+  hangman:
+    build: https://github.com/okinskas/perfect-hangman.git
