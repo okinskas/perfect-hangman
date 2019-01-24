@@ -1,6 +1,6 @@
 version: "3"
 services:
-  hangman:
+  perfect-hangman:
     image: "okinskas/perfect-hangman:latest"
     stdin_open: true
     tty: true
