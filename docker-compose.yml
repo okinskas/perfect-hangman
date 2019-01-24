@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
   hangman:
     build: https://github.com/okinskas/perfect-hangman.git
